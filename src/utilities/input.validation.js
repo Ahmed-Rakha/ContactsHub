@@ -1,5 +1,11 @@
 export function validateInput(id, value) {
-  console.log(id, value);
+  if (id === "contactFullName") {
+    id = "firstName";
+  } else if (id === "contactEmail") {
+    id = "email";
+  } else if (id === "contactPhoneNumber") {
+    id = "phoneNumber";
+  }
   //   My Rules
   const rules = {
     firstName: {
@@ -8,6 +14,11 @@ export function validateInput(id, value) {
       message: "Invalid name. It should be 3 or more characters long.",
     },
     lastName: {
+      regex: /^[a-zA-Z\s-]{3,50}$/,
+      errorId: "register-form-input-last-name-error",
+      message: "Invalid name. It should be 3 or more characters long.",
+    },
+    contactFullName: {
       regex: /^[a-zA-Z\s-]{3,50}$/,
       errorId: "register-form-input-last-name-error",
       message: "Invalid name. It should be 3 or more characters long.",

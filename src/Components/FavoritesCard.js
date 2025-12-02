@@ -1,3 +1,4 @@
+import { getRandomColor } from "../utilities/userProfile.functions.js";
 function FavoritesCard({ totalFavorites, contacts }) {
   var content = "";
   if (totalFavorites > 0) {
@@ -6,8 +7,8 @@ function FavoritesCard({ totalFavorites, contacts }) {
         content += `
               <div class="d-flex align-items-center justify-content-between mb-3">
                   <div class="d-flex align-items-center gap-4">
-                    <div
-                      class="icon-container icon-container-md text-white bg-orange-500 d-flex align-items-center justify-content-center gap-3"
+                    <div style="background-color: ${getRandomColor()};"
+                      class="icon-container icon-container-md text-white  d-flex align-items-center justify-content-center gap-3"
                     >
                       <span class="fw-bold fs-5">${contacts[i].fullName.charAt(
                         0

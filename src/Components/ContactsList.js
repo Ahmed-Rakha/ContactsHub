@@ -2,6 +2,7 @@ import {
   toggleEmergency,
   toggleFavorite,
   removeContact,
+  getRandomColor,
 } from "../utilities/userProfile.functions.js";
 
 function ContactsList(userProfile) {
@@ -18,8 +19,8 @@ function ContactsList(userProfile) {
                   <div class="card custom-shadow rounded-4 mb-3">
                     <div class="card-body">
                       <div class="d-flex align-items-center gap-4">
-                        <div
-                          class="icon-container icon-container-lg bg-orange-600 d-flex align-items-center justify-content-center gap-3 position-relative"
+                        <div style="background-color: ${getRandomColor()};"
+                          class="icon-container icon-container-lg  d-flex align-items-center justify-content-center gap-3 position-relative"
                         >
                           <span class="fw-bold fs-4">${contacts[
                             i

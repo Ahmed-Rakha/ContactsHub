@@ -5,11 +5,10 @@ import FavoritesCard from "../Components/FavoritesCard.js";
 export function getUserProfile() {
   return JSON.parse(localStorage.getItem("userProfile"));
 }
-export function addNewContact(userProfile, newContact) {
+export function saveContact(newContact) {
+  var userProfile = getUserProfile();
   userProfile.contacts.push(newContact);
-  recalculateUserStats(userProfile);
-  localStorage.setItem("userProfile", JSON.stringify(userProfile));
-  getUserContacts();
+  updateUserProfile(userProfile);
   return userProfile;
 }
 
@@ -103,4 +102,13 @@ function updateUserProfile(userProfile) {
   }
 
   return userProfile;
+}
+
+export function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
