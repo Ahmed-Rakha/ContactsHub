@@ -17,28 +17,7 @@ function Register() {
         totalFavorites: 0,
         totalEmergency: 0,
         contactsCount: 0,
-        contacts: [
-          {
-            fullName: "Mona Adel",
-            email: "mona.adel@example.com",
-            phoneNumber: "+201556677889",
-            address: "Cairo, Egypt",
-            group: "Family",
-            notes: "Work colleague from the IT department.",
-            isFavorite: true,
-            isEmergency: false,
-          },
-          {
-            fullName: "Omar Sherif",
-            email: "omar.sherif@example.com",
-            phoneNumber: "+201998877665",
-            address: "Mansoura, Egypt",
-            group: "Friends",
-            notes: "Old school friend.",
-            isFavorite: true,
-            isEmergency: true,
-          },
-        ],
+        contacts: [],
       };
       localStorage.setItem("userProfile", JSON.stringify(newUser));
       localStorage.setItem("isRegistered", "true");
