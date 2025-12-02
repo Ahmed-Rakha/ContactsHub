@@ -16,17 +16,6 @@ function Modal() {
     isValid = validateInput(element.id, element.value.trim());
   }
   function onSaveContact() {
-    console.log("Saving contact...");
-    console.log(isValid);
-    console.log(contactImg.value);
-    console.log(contactFullName.value);
-    console.log(contactEmail.value);
-    console.log(contactPhoneNumber.value);
-    console.log(contactAddress.value);
-    console.log(contactGroup.value);
-    console.log(contactNotes.value);
-    console.log(checkFavorite.checked);
-    console.log(checkEmergency.checked);
     if (isValid) {
       var newContact = {
         fullName: contactFullName.value,
@@ -38,7 +27,13 @@ function Modal() {
         isFavorite: checkFavorite.checked,
         isEmergency: checkEmergency.checked,
       };
+
+      var modalForm = document.getElementById("modalForm");
+      var modalEl = document.getElementById("exampleModal");
+      var modal = bootstrap.Modal.getInstance(modalEl);
       saveContact(newContact);
+      modalForm.reset();
+      modal.hide();
 
       Swal.fire({
         title: "Success!",
@@ -66,7 +61,7 @@ function Modal() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="modalForm">
         <div class="text-center mb-3">
           <div class="circle-form-icon">
           <i class="fa-solid fa-user"></i>

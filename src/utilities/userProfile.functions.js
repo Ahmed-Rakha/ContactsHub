@@ -2,6 +2,7 @@ import ContactsList from "../Components/ContactsList.js";
 import StatsCard from "../Components/StatsCard.js";
 import EmergencyCard from "../Components/EmergencyCard.js";
 import FavoritesCard from "../Components/FavoritesCard.js";
+import AllContactsHeader from "../Components/AllContactsHeader.js";
 export function getUserProfile() {
   return JSON.parse(localStorage.getItem("userProfile"));
 }
@@ -49,22 +50,6 @@ export function toggleFavorite(contactIndex) {
   return userProfile;
 }
 
-export function addContactToEmergencyList(userProfile, contactIndex) {
-  userProfile.contacts[contactIndex].isEmergency = true;
-  recalculateUserStats(userProfile);
-  localStorage.setItem("userProfile", JSON.stringify(userProfile));
-  getUserContacts();
-  return userProfile;
-}
-
-export function addContactToFavoriteList(userProfile, contactIndex) {
-  userProfile.contacts[contactIndex].isFavorite = true;
-  recalculateUserStats(userProfile);
-  localStorage.setItem("userProfile", JSON.stringify(userProfile));
-  getUserContacts();
-  return userProfile;
-}
-
 // helper functions
 
 function updateUserProfile(userProfile) {
@@ -76,6 +61,8 @@ function updateUserProfile(userProfile) {
   var favoritesEmergencyCardElement = document.getElementById(
     "favorites-emergency"
   );
+  var allContactsHeaderElement = document.getElementById("allContactsHeader");
+
   if (contactListElement) {
     contactListElement.innerHTML = ContactsList(userProfile);
   }
@@ -89,7 +76,6 @@ function updateUserProfile(userProfile) {
   }
 
   if (favoritesEmergencyCardElement) {
-    console.log(favoritesEmergencyCardElement);
     favoritesEmergencyCardElement.innerHTML =
       FavoritesCard({
         totalFavorites: userProfile.totalFavorites,
@@ -100,7 +86,11 @@ function updateUserProfile(userProfile) {
         contacts: userProfile.contacts,
       });
   }
-
+  if (allContactsHeaderElement) {
+    allContactsHeaderElement.innerHTML = AllContactsHeader(
+      userProfile.contacts.length
+    );
+  }
   return userProfile;
 }
 

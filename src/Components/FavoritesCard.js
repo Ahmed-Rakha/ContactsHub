@@ -10,9 +10,9 @@ function FavoritesCard({ totalFavorites, contacts }) {
                     <div style="background-color: ${getRandomColor()};"
                       class="icon-container icon-container-md text-white  d-flex align-items-center justify-content-center gap-3"
                     >
-                      <span class="fw-bold fs-5">${contacts[i].fullName.charAt(
-                        0
-                      )}</span>
+                      <span class="fw-bold fs-5">${contacts[i].fullName
+                        .charAt(0)
+                        .toUpperCase()}</span>
                     </div>
                     <div>
                       <h5 class="fw-bold mb-0">${contacts[i].fullName}</h5>

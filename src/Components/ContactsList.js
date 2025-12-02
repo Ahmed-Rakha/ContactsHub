@@ -24,7 +24,7 @@ function ContactsList(userProfile) {
                         >
                           <span class="fw-bold fs-4">${contacts[
                             i
-                          ].fullName.charAt(0)}</span>
+                          ].fullName.charAt(0).toUpperCase()}</span>
                           ${
                             !contacts[i].isFavorite
                               ? ""
