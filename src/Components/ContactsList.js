@@ -22,9 +22,9 @@ function ContactsList(userProfile) {
                         <div style="background-color: ${getRandomColor()};"
                           class="icon-container icon-container-lg  d-flex align-items-center justify-content-center gap-3 position-relative"
                         >
-                          <span class="fw-bold fs-4">${contacts[
-                            i
-                          ].fullName.charAt(0).toUpperCase()}</span>
+                          <span class="fw-bold fs-4">${contacts[i].fullName
+                            .charAt(0)
+                            .toUpperCase()}</span>
                           ${
                             !contacts[i].isFavorite
                               ? ""

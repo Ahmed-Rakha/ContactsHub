@@ -2,10 +2,12 @@ import { validateInput } from "../utilities/input.validation.js";
 import {
   getUserProfile,
   saveContact,
+  getBlobUrl,
 } from "../utilities/userProfile.functions.js";
 
 function Modal() {
   var isValid = false;
+  var imageURL = null;
   function onInput(element) {
     console.log(element.id, element.value);
     if (element.id === "contactImg") return;
@@ -14,6 +16,19 @@ function Modal() {
     if (element.id === "contactAddress") return;
 
     isValid = validateInput(element.id, element.value.trim());
+  }
+
+  function onSelectImg(element) {
+    console.log(element.files[0]);
+    imageURL = getBlobUrl(element.files[0]);
+    console.log(imageURL);
+    console.log(document.getElementById("contactModalAvatar"));
+    var contactImageModalElement =
+      document.getElementById("contactModalAvatar");
+    var modalIconAvatar = document.getElementById("modalAvatarIcon");
+    modalIconAvatar.classList.add("d-none");
+    contactImageModalElement.classList.remove("d-none");
+    contactImageModalElement.src = imageURL;
   }
   function onSaveContact() {
     if (isValid) {
@@ -26,6 +41,7 @@ function Modal() {
         notes: contactNotes.value,
         isFavorite: checkFavorite.checked,
         isEmergency: checkEmergency.checked,
+        imageURL: imageURL,
       };
 
       var modalForm = document.getElementById("modalForm");
@@ -52,6 +68,7 @@ function Modal() {
   }
   window.onInput = onInput;
   window.onSaveContact = onSaveContact;
+  window.onSelectImg = onSelectImg;
   return `
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -64,9 +81,12 @@ function Modal() {
         <form id="modalForm">
         <div class="text-center mb-3">
           <div class="circle-form-icon">
-          <i class="fa-solid fa-user"></i>
+          
+              <i class="fa-solid fa-user" id="modalAvatarIcon"></i>
+            <img src="" alt="avatar" id="contactModalAvatar" class="d-none" />
+          
           </div>
-          <input oninput="onInput(this)" type="file" id="contactImg"/>
+          <input onchange="onSelectImg(this)" type="file" id="contactImg"/>
         </div>
         
          <div class="mb-3">

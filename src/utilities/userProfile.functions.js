@@ -102,3 +102,7 @@ export function getRandomColor() {
   }
   return color;
 }
+
+export function getBlobUrl(file) {
+  return URL.createObjectURL(file);
+}
