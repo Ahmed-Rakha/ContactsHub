@@ -13,6 +13,8 @@ function ContactsList(userProfile) {
   window.removeContact = removeContact;
   if (contacts.length > 0) {
     for (var i = 0; i < contacts.length; i++) {
+      console.log(contacts[i]);
+      console.log(contacts[i].imageURL);
       content += `
       
       
@@ -20,11 +22,18 @@ function ContactsList(userProfile) {
                     <div class="card-body">
                       <div class="d-flex align-items-center gap-4">
                         <div style="background-color: ${getRandomColor()};"
-                          class="icon-container icon-container-lg  d-flex align-items-center justify-content-center gap-3 position-relative"
+                          class="icon-container icon-container-lg  d-flex align-items-center justify-content-center gap-3 position-relative overflow-hidden"
                         >
-                          <span class="fw-bold fs-4">${contacts[i].fullName
-                            .charAt(0)
-                            .toUpperCase()}</span>
+
+                          ${
+                            contacts[i].imageURL
+                              ? `<img src="${contacts[i].imageURL}" alt="contact image" id="contact-image">`
+                              : `<span class="fw-bold fs-4">${contacts[
+                                  i
+                                ].fullName
+                                  .charAt(0)
+                                  .toUpperCase()}</span>`
+                          }
                           ${
                             !contacts[i].isFavorite
                               ? ""
@@ -45,7 +54,9 @@ function ContactsList(userProfile) {
                         }
                         </div>
                         <div class="contact-name-phone">
-                          <h4 class="fw-bold mb-1">${contacts[i].fullName}</h4>
+                          <h4 class="fw-bold mb-1 text-capitalize">${
+                            contacts[i].fullName
+                          }</h4>
                           <p class="mb-0">
                             <span
                               class="fw-bold icon-container icon-container-sm bg-indigo-300"
@@ -57,8 +68,10 @@ function ContactsList(userProfile) {
                           </p>
                         </div>
                       </div>
-
-                      <div class="mt-3">
+                       ${
+                         !contacts[i].email
+                           ? ""
+                           : `<div class="mt-3">
                         <span
                           class="fw-bold icon-container icon-container-sm bg-purple-100 color-purple-600 me-1"
                           ><i class="fa-solid fa-envelope"></i
@@ -66,16 +79,19 @@ function ContactsList(userProfile) {
                         <span class="text-muted small-p"
                           >${contacts[i].email}</span
                         >
-                      </div>
-                      <div class="my-2">
+                      </div>`
+                       }
+                      ${
+                        !contacts[i].address
+                          ? ""
+                          : `<div class="my-2">
                         <span
                           class="fw-bold icon-container icon-container-sm bg-green-200 color-green-600 me-1"
                           ><i class="fa-solid fa-location-dot"></i
                         ></span>
-                        <span class="text-muted small-p">${
-                          contacts[i].address
-                        }</span>
-                      </div>
+                        <span class="text-muted small-p">${contacts[i].address}</span>
+                      </div>`
+                      }
                       <div class="card-badges">
                         <span
                           class="fw-bold bg-green-200 color-green-600 text-capitalize rounded-2 px-3 py-1 me-3"

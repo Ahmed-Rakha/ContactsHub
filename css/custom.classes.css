@@ -489,11 +489,23 @@
 .bg-pink-100 {
   background-color: var(--color-pink-100);
 }
-
+.text-red-50 {
+  color: var(--color-red-50);
+}
 .text-red-100 {
   color: var(--color-red-100);
 }
-
+.bg-red-50 {
+  background-color: var(--color-red-50);
+}
 .bg-red-100 {
   background-color: var(--color-red-100);
+}
+
+.bg-red-600 {
+  background-color: var(--color-red-600);
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

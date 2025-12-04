@@ -46,3 +46,28 @@ export function validateInput(id, value) {
 
   return isValid;
 }
+
+export function validateUploadedImg(file) {
+  var actualType = file.type.toLowerCase();
+  var actualSize = file.size;
+  var allowedSize = 2 * 1024 * 1024;
+  var allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+  if (actualSize > allowedSize) {
+    return {
+      type: "error",
+      message: "Image size should be less than 2MB.",
+    };
+  }
+  if (!allowedTypes.includes(actualType)) {
+    return {
+      type: "error",
+      message: "Image type should be jpeg, png, gif, or webp.",
+    };
+  }
+
+  return {
+    type: "success",
+    message: "Image uploaded successfully.",
+  };
+}

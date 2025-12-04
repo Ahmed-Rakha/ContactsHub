@@ -165,4 +165,5 @@ header .custom-shadow:hover {
   background-color: var(--color-indigo-600);
   color: #fff;
   font-size: 2rem;
+  overflow: hidden;
 }

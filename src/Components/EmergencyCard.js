@@ -6,7 +6,7 @@ function EmergencyCard({ totalEmergency, contacts }) {
     for (var i = 0; i < contacts.length; i++) {
       if (contacts[i].isEmergency) {
         content += `
-         <div class="d-flex align-items-center justify-content-between mb-3">
+         <div class="d-flex align-items-center justify-content-between mb-3 ">
           <div class="d-flex align-items-center gap-4">
             <div style="background-color: ${getRandomColor()};"
               class="icon-container icon-container-md text-white  d-flex align-items-center justify-content-center gap-3"
@@ -16,14 +16,18 @@ function EmergencyCard({ totalEmergency, contacts }) {
                 .toUpperCase()}</span>
             </div>
             <div>
-              <h5 class="fw-bold mb-0">${contacts[i].fullName}</h5>
+              <h5 class="fw-bold mb-0 text-capitalize">${
+                contacts[i].fullName
+              }</h5>
               <p class="mb-0 text-muted small-p">${contacts[i].phoneNumber}</p>
             </div>
           </div>
           <div
             class="icon-container icon-container-sm bg-red-100 color-red-600"
           >
-            <i class="fa-solid fa-phone"></i>
+           <a href="tel:${
+             contacts[i].phoneNumber
+           }" class="text-decoration-none bg-red-100 color-red-600"><i class="fa-solid fa-phone"></i></a> 
           </div>
         </div>
         `;
@@ -31,8 +35,8 @@ function EmergencyCard({ totalEmergency, contacts }) {
     }
   }
   return `
-   <div class="card shadow-md rounded-4 mt-4">
-      <div class="card-body">
+   <div class="card shadow-md rounded-4 mt-4 overflow-hidden ">
+      <div class="card-body bg-red-50">
         <div class="d-flex align-items-center gap-4">
           <div
             class="icon-container icon-container-md text-white bg-red-500 d-flex align-items-center justify-content-center gap-3"

@@ -1,4 +1,8 @@
-import { validateInput } from "../utilities/input.validation.js";
+import { fireAlert } from "../utilities/alert.js";
+import {
+  validateInput,
+  validateUploadedImg,
+} from "../utilities/input.validation.js";
 import {
   getUserProfile,
   saveContact,
@@ -19,10 +23,14 @@ function Modal() {
   }
 
   function onSelectImg(element) {
-    console.log(element.files[0]);
-    imageURL = getBlobUrl(element.files[0]);
-    console.log(imageURL);
-    console.log(document.getElementById("contactModalAvatar"));
+    var file = element.files[0];
+    if (file) {
+      var imgValidation = validateUploadedImg(file);
+      fireAlert(imgValidation);
+      if (imgValidation.type === "success") {
+        imageURL = getBlobUrl(file);
+      }
+    }
     var contactImageModalElement =
       document.getElementById("contactModalAvatar");
     var modalIconAvatar = document.getElementById("modalAvatarIcon");
@@ -31,6 +39,10 @@ function Modal() {
     contactImageModalElement.src = imageURL;
   }
   function onSaveContact() {
+    console.log(contactImg.files[0]);
+    if (contactImg.files[0]) {
+      console.log(contactImg.files[0]);
+    }
     if (isValid) {
       var newContact = {
         fullName: contactFullName.value,
@@ -86,17 +98,22 @@ function Modal() {
             <img src="" alt="avatar" id="contactModalAvatar" class="d-none" />
           
           </div>
-          <input onchange="onSelectImg(this)" type="file" id="contactImg"/>
+          <div class="text-center mt-3">
+            <label for="contactImg" class="bg-gray-300 p-2 rounded-3 cursor-pointer">
+              <span> <i class="fa-solid fa-camera me-1"></i> Change Photo </span>
+            </label>
+             <input onchange="onSelectImg(this)" type="file" id="contactImg" hidden/>
+          </div>
         </div>
         
          <div class="mb-3">
           <label class=form-label mb-2">Full Name <span class="text-danger mb-2">*</span></label>
-          <input  oninput="onInput(this)" id="contactFullName" type="text" placeholder="Enter Full Name" class="form-control"/>
+          <input  oninput="onInput(this)" id="contactFullName" type="text" placeholder="Enter Full Name" class="form-control" required/>
           <p id="register-form-input-first-name-error" class="text-danger"></p>
          </div>
           <div  class="mb-3">
           <label class=form-label mb-2">Phone Number <span class="text-danger mb-2">*</span></label>
-          <input  oninput="onInput(this)" id="contactPhoneNumber" type="text" placeholder="e.g., 01012345678" class="form-control"/>
+          <input  oninput="onInput(this)" id="contactPhoneNumber" type="text" placeholder="e.g., 01012345678" class="form-control" required/>
           <p id="register-form-input-phone-error" class="text-danger"></p>
          </div>
           <div  class="mb-3">
@@ -117,8 +134,7 @@ function Modal() {
          </div>
           <div  class="mb-3">
           <label class=form-label mb-2">Notes</label>
-          <input  oninput="onInput(this)" id="contactNotes" type="textarea" placeholder="Add notes about this contact" class="form-control"/>
-         </div>
+          <textarea id="contactNotes" class="form-control" oninput="onInput(this)" placeholder="Add notes"></textarea>         </div>
         <div class="d-flex gap-3 mb-3">
         <div>
          <input type="checkbox" class="form-check-input" id="checkFavorite"/>

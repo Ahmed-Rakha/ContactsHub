@@ -15,7 +15,9 @@ function FavoritesCard({ totalFavorites, contacts }) {
                         .toUpperCase()}</span>
                     </div>
                     <div>
-                      <h5 class="fw-bold mb-0">${contacts[i].fullName}</h5>
+                      <h5 class="fw-bold mb-0 text-capitalize">${
+                        contacts[i].fullName
+                      }</h5>
                       <p class="mb-0 text-muted small-p">${
                         contacts[i].phoneNumber
                       }</p>
@@ -24,7 +26,9 @@ function FavoritesCard({ totalFavorites, contacts }) {
                   <div
                     class="icon-container icon-container-sm bg-green-100 color-green-600"
                   >
-                    <i class="fa-solid fa-phone"></i>
+                   <a href="tel:${
+                     contacts[i].phoneNumber
+                   }" class="text-decoration-none bg-green-100 color-green-600"><i class="fa-solid fa-phone"></i></a> 
                   </div>
               </div>
           `;
@@ -32,8 +36,8 @@ function FavoritesCard({ totalFavorites, contacts }) {
     }
   }
   return `
-   <div class="card shadow-md rounded-4">
-      <div class="card-body">
+   <div class="card shadow-md rounded-4 overflow-hidden">
+      <div class="card-body bg-orange-50">
         <div class="d-flex align-items-center gap-4">
           <div
             class="icon-container icon-container-md text-white bg-orange-500 d-flex align-items-center justify-content-center gap-3"
