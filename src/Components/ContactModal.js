@@ -11,7 +11,7 @@ import {
   editContact,
 } from "../utilities/userProfile.functions.js";
 
-function Modal() {
+function ContactModal() {
   var isValid = false;
   var imageURL = null;
   function onInput(element) {
@@ -168,4 +168,4 @@ function Modal() {
     `;
 }
 
-export default Modal;
+export default ContactModal;

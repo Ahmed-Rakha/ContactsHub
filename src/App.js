@@ -1,7 +1,7 @@
 import AllContacts from "./Components/AllContacts.js";
 import EmergencyCard from "./Components/EmergencyCard.js";
 import FavoritesCard from "./Components/FavoritesCard.js";
-import Modal from "./Components/Modal.js";
+import ContactModal from "./Components/ContactModal.js";
 import NavBar from "./Components/NavBar.js";
 import Register from "./Components/Register.js";
 import StatsCard from "./Components/StatsCard.js";
@@ -51,7 +51,7 @@ function App() {
           </div>
         </section>
       </main>
-      ${Modal()}
+      ${ContactModal()}
     </div>
   `;
   }
