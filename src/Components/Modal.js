@@ -7,6 +7,8 @@ import {
   getUserProfile,
   saveContact,
   getBlobUrl,
+  closeModal,
+  editContact,
 } from "../utilities/userProfile.functions.js";
 
 function Modal() {
@@ -39,12 +41,34 @@ function Modal() {
     contactImageModalElement.src = imageURL;
   }
   function onSaveContact() {
-    console.log(contactImg.files[0]);
-    if (contactImg.files[0]) {
-      console.log(contactImg.files[0]);
-    }
-    if (isValid) {
-      var newContact = {
+    var modalMode = document.getElementById("modalMode").value;
+    var contactIndex = document.getElementById("modalContactIndex").value;
+    if (modalMode === "add") {
+      if (isValid) {
+        var newContact = {
+          fullName: contactFullName.value,
+          email: contactEmail.value,
+          phoneNumber: contactPhoneNumber.value,
+          address: contactAddress.value,
+          group: contactGroup.value,
+          notes: contactNotes.value,
+          isFavorite: checkFavorite.checked,
+          isEmergency: checkEmergency.checked,
+          imageURL: imageURL,
+        };
+
+        saveContact(newContact);
+        modalForm.reset();
+        closeModal();
+        fireAlert({ type: "success", message: "Contact saved successfully" });
+      } else {
+        fireAlert({
+          type: "error",
+          message: "Please fill the form correctly.",
+        });
+      }
+    } else if (modalMode === "edit") {
+      editContact(contactIndex, {
         fullName: contactFullName.value,
         email: contactEmail.value,
         phoneNumber: contactPhoneNumber.value,
@@ -54,43 +78,28 @@ function Modal() {
         isFavorite: checkFavorite.checked,
         isEmergency: checkEmergency.checked,
         imageURL: imageURL,
-      };
-
-      var modalForm = document.getElementById("modalForm");
-      var modalEl = document.getElementById("exampleModal");
-      var modal = bootstrap.Modal.getInstance(modalEl);
-      saveContact(newContact);
+      });
       modalForm.reset();
-      modal.hide();
-
-      Swal.fire({
-        title: "Success!",
-        text: "Contact added successfully.",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
-    } else {
-      Swal.fire({
-        title: "Error!",
-        text: "Please fill the form correctly.",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
+      closeModal();
+      fireAlert({ type: "success", message: "Contact updated successfully" });
     }
   }
   window.onInput = onInput;
   window.onSaveContact = onSaveContact;
   window.onSelectImg = onSelectImg;
   return `
+   
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Contact</h5>
+        <h5 class="modal-title" id="modalTitle">Add New Contact</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form id="modalForm">
+         <input type="hidden" id="modalMode" />
+         <input type="hidden" id="modalContactIndex" />
         <div class="text-center mb-3">
           <div class="circle-form-icon">
           

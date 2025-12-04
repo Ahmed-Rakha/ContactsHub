@@ -6,6 +6,15 @@ import AllContactsHeader from "../Components/AllContactsHeader.js";
 export function getUserProfile() {
   return JSON.parse(localStorage.getItem("userProfile"));
 }
+
+export function addNewContact() {
+  openModal();
+  document.getElementById("modalTitle").innerText = "Add New Contact";
+  document.getElementById("modalForm").reset();
+  document.getElementById("modalMode").value = "add";
+  document.getElementById("modalAvatarIcon").classList.remove("d-none");
+  document.getElementById("contactModalAvatar").classList.add("d-none");
+}
 export function saveContact(newContact) {
   var userProfile = getUserProfile();
   userProfile.contacts.push(newContact);
@@ -16,6 +25,31 @@ export function saveContact(newContact) {
 export function removeContact(contactIndex) {
   var userProfile = getUserProfile();
   userProfile.contacts.splice(contactIndex, 1);
+  updateUserProfile(userProfile);
+  return userProfile;
+}
+
+export function onEditContact(contactIndex) {
+  console.log(contactIndex);
+  openModal();
+  var contact = getUserProfile().contacts[contactIndex];
+  document.getElementById("modalTitle").innerText = "Edit Contact";
+  document.getElementById("contactFullName").value = contact.fullName;
+  document.getElementById("contactPhoneNumber").value = contact.phoneNumber;
+  document.getElementById("contactEmail").value = contact.email;
+  document.getElementById("contactAddress").value = contact.address;
+  document.getElementById("contactGroup").value = contact.group;
+  document.getElementById("contactNotes").value = contact.notes;
+  document.getElementById("checkFavorite").checked = contact.isFavorite;
+  document.getElementById("checkEmergency").checked = contact.isEmergency;
+  document.getElementById("contactModalAvatar").src = contact.imageURL;
+  document.getElementById("modalMode").value = "edit";
+  document.getElementById("modalContactIndex").value = contactIndex;
+}
+
+export function editContact(contactIndex, newContact) {
+  var userProfile = getUserProfile();
+  userProfile.contacts.splice(contactIndex, 1, newContact);
   updateUserProfile(userProfile);
   return userProfile;
 }
@@ -64,7 +98,7 @@ function updateUserProfile(userProfile) {
   var allContactsHeaderElement = document.getElementById("allContactsHeader");
 
   if (contactListElement) {
-    contactListElement.innerHTML = ContactsList(userProfile);
+    contactListElement.innerHTML = ContactsList(userProfile.contacts);
   }
 
   if (statsCardsElement) {
@@ -118,4 +152,20 @@ export function searchContacts(val) {
     }
   }
   contactListElement.innerHTML = ContactsList(searchResults);
+}
+
+function openModal() {
+  var modalEl = document.getElementById("exampleModal");
+  var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
+}
+
+export function closeModal() {
+  var modalEl = document.getElementById("exampleModal");
+  var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.hide();
+}
+
+export function checkFiredElement(el) {
+  console.log(el.dataset.firedElement);
 }

@@ -2,6 +2,8 @@ import {
   toggleEmergency,
   toggleFavorite,
   removeContact,
+  editContact,
+  onEditContact,
 } from "../utilities/userProfile.functions.js";
 
 import { getRandomColor } from "../utilities/generate.random.color.js";
@@ -10,6 +12,8 @@ function ContactsList(contacts) {
   window.toggleEmergency = toggleEmergency;
   window.toggleFavorite = toggleFavorite;
   window.removeContact = removeContact;
+  window.editContact = editContact;
+  window.onEditContact = onEditContact;
   if (contacts.length > 0) {
     for (var i = 0; i < contacts.length; i++) {
       console.log(contacts[i]);
@@ -144,7 +148,7 @@ function ContactsList(contacts) {
                               }"
                             ></i
                           ></span>
-                          <span
+                          <span onclick="onEditContact(${i})"
                             ><i class="fa-solid fa-pen-to-square me-3"></i
                           ></span>
                           <span onclick="removeContact(${i})"><i class="fa-solid fa-trash"></i></span>

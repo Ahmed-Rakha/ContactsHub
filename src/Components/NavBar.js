@@ -1,4 +1,7 @@
+import { addNewContact } from "../utilities/userProfile.functions.js";
+
 function NavBar() {
+  window.addNewContact = addNewContact;
   return `
 
   <div class="container">
@@ -21,7 +24,7 @@ function NavBar() {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-3">
         <li class="nav-item">
-          <button class="btn btn-brand-color rounded-3 py-2"  data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus text-white"></i> <span class="text-capitalize">Add Contact</span></button>
+          <button class="btn btn-brand-color rounded-3 py-2" onclick="addNewContact()" "><i class="fa-solid fa-plus text-white"></i> <span class="text-capitalize">Add Contact</span></button>
         </li>
         <li class="nav-item icon-container ">
           <a class="nav-link" href="#">
