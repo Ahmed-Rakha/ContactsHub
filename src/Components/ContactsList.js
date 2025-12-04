@@ -2,12 +2,11 @@ import {
   toggleEmergency,
   toggleFavorite,
   removeContact,
-  getRandomColor,
 } from "../utilities/userProfile.functions.js";
 
-function ContactsList(userProfile) {
+import { getRandomColor } from "../utilities/generate.random.color.js";
+function ContactsList(contacts) {
   var content = "";
-  var contacts = userProfile.contacts;
   window.toggleEmergency = toggleEmergency;
   window.toggleFavorite = toggleFavorite;
   window.removeContact = removeContact;

@@ -1,4 +1,4 @@
-import { getRandomColor } from "../utilities/userProfile.functions.js";
+import { getRandomColor } from "../utilities/generate.random.color.js";
 function FavoritesCard({ totalFavorites, contacts }) {
   var content = "";
   if (totalFavorites > 0) {

@@ -1,4 +1,4 @@
-import { getRandomColor } from "../utilities/userProfile.functions.js";
+import { getRandomColor } from "../utilities/generate.random.color.js";
 function EmergencyCard({ totalEmergency, contacts }) {
   var content = "";
 

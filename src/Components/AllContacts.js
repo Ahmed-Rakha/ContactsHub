@@ -11,7 +11,7 @@ function AllContacts(userProfile) {
               
                ${ContactsSearchBar()}
                <div id="contacts-list">
-                ${ContactsList(userProfile)}
+                ${ContactsList(userProfile.contacts)}
                </div>
                
               </div>

@@ -94,15 +94,28 @@ function updateUserProfile(userProfile) {
   return userProfile;
 }
 
-export function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
 export function getBlobUrl(file) {
   return URL.createObjectURL(file);
+}
+
+export function searchContacts(val) {
+  var userProfile = getUserProfile();
+  var contacts = userProfile.contacts;
+  var contactListElement = document.getElementById("contacts-list");
+
+  if (!val) {
+    contactListElement.innerHTML = ContactsList(contacts);
+    return;
+  }
+  var searchResults = [];
+  for (var i = 0; i < contacts.length; i++) {
+    if (
+      contacts[i].fullName.toLowerCase().includes(val.toLowerCase()) ||
+      contacts[i].phoneNumber.toLowerCase().includes(val.toLowerCase()) ||
+      contacts[i].email.toLowerCase().includes(val.toLowerCase())
+    ) {
+      searchResults.push(contacts[i]);
+    }
+  }
+  contactListElement.innerHTML = ContactsList(searchResults);
 }
