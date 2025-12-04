@@ -1,7 +1,12 @@
-import { addNewContact } from "../utilities/userProfile.functions.js";
+import {
+  addNewContact,
+  openUserModal,
+} from "../utilities/userProfile.functions.js";
+import UserProfile from "./UserProfileCard.js";
 
 function NavBar() {
   window.addNewContact = addNewContact;
+  window.openUserModal = openUserModal;
   return `
 
   <div class="container">
@@ -36,11 +41,10 @@ function NavBar() {
           <i class="fa-solid fa-gear"></i>
           </a>
         </li>
-         <li class="nav-item nav-profile-pic">
-         
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="user"/>
-        
+        <li class="nav-item" id="userProfileEl">
+         ${UserProfile()}
         </li>
+         
       </ul>
     </div>
   </div>

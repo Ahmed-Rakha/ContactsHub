@@ -14,6 +14,7 @@ function Register() {
         lastName: lastName.value,
         email: email.value,
         phoneNumber: phoneNumber.value,
+        avatar: "",
         totalFavorites: 0,
         totalEmergency: 0,
         contactsCount: 0,

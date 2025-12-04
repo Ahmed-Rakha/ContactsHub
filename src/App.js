@@ -9,6 +9,7 @@ import {
   getUserProfile,
   recalculateUserStats,
 } from "./utilities/userProfile.functions.js";
+import UserModal from "./Components/UserModal.js";
 function App() {
   var isRegistered = JSON.parse(localStorage.getItem("isRegistered"));
 
@@ -52,6 +53,7 @@ function App() {
         </section>
       </main>
       ${ContactModal()}
+      ${UserModal()}
     </div>
   `;
   }

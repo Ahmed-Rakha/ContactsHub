@@ -3,12 +3,14 @@ import StatsCard from "../Components/StatsCard.js";
 import EmergencyCard from "../Components/EmergencyCard.js";
 import FavoritesCard from "../Components/FavoritesCard.js";
 import AllContactsHeader from "../Components/AllContactsHeader.js";
+import { fireAlert } from "./alert.js";
+import UserProfileCard from "../Components/UserProfileCard.js";
 export function getUserProfile() {
   return JSON.parse(localStorage.getItem("userProfile"));
 }
 
 export function addNewContact() {
-  openModal();
+  openContactModal();
   document.getElementById("modalTitle").innerText = "Add New Contact";
   document.getElementById("modalForm").reset();
   document.getElementById("modalMode").value = "add";
@@ -31,7 +33,7 @@ export function removeContact(contactIndex) {
 
 export function onEditContact(contactIndex) {
   console.log(contactIndex);
-  openModal();
+  openContactModal();
   var contact = getUserProfile().contacts[contactIndex];
   document.getElementById("modalTitle").innerText = "Edit Contact";
   document.getElementById("contactFullName").value = contact.fullName;
@@ -96,6 +98,7 @@ function updateUserProfile(userProfile) {
     "favorites-emergency"
   );
   var allContactsHeaderElement = document.getElementById("allContactsHeader");
+  var userProfileElement = document.getElementById("userProfileEl");
 
   if (contactListElement) {
     contactListElement.innerHTML = ContactsList(userProfile.contacts);
@@ -124,6 +127,11 @@ function updateUserProfile(userProfile) {
     allContactsHeaderElement.innerHTML = AllContactsHeader(
       userProfile.contacts.length
     );
+  }
+
+  if (userProfileElement) {
+    console.log(userProfileElement);
+    userProfileElement.innerHTML = UserProfileCard(userProfile.avatar);
   }
   return userProfile;
 }
@@ -154,7 +162,7 @@ export function searchContacts(val) {
   contactListElement.innerHTML = ContactsList(searchResults);
 }
 
-function openModal() {
+function openContactModal() {
   var modalEl = document.getElementById("exampleModal");
   var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
   modal.show();
@@ -168,4 +176,62 @@ export function closeModal() {
 
 export function checkFiredElement(el) {
   console.log(el.dataset.firedElement);
+}
+
+export function openUserModal() {
+  var modalEl = document.getElementById("userModal");
+  var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
+  onOpenUserModal();
+}
+
+export function onOpenUserModal() {
+  var userProfile = getUserProfile();
+  document.getElementById("userFirstName").value = userProfile.firstName;
+  document.getElementById("userLastName").value = userProfile.lastName;
+  document.getElementById("userEmail").value = userProfile.email;
+  document.getElementById("userPhoneNumber").value = userProfile.phoneNumber;
+}
+
+export function onEditUserProfile() {
+  var userProfile = getUserProfile();
+  var btn = document.getElementById("editUserProfileBtn");
+  var mode = btn.dataset.mode;
+  if (mode === "edit") {
+    setDisabled(false);
+    btn.innerText = "Save Profile";
+    btn.dataset.mode = "save";
+  } else if (mode === "save") {
+    userProfile.firstName = document.getElementById("userFirstName").value;
+    userProfile.lastName = document.getElementById("userLastName").value;
+    userProfile.email = document.getElementById("userEmail").value;
+    userProfile.phoneNumber = document.getElementById("userPhoneNumber").value;
+    updateUserProfile(userProfile);
+    setDisabled(true);
+    btn.innerText = "Edit Profile";
+    btn.dataset.mode = "edit";
+    fireAlert({ type: "success", message: "Profile updated successfully" });
+    updateUserProfile(userProfile);
+  }
+}
+
+export function onChangeUserImg(file) {
+  var userProfile = getUserProfile();
+  userProfile.avatar = getBlobUrl(file);
+  console.log(document.getElementById("userImage"));
+  document.getElementById("userImage").src = userProfile.avatar;
+}
+// helper Function
+
+function setDisabled(disabled) {
+  var fields = [
+    "userFirstName",
+    "userLastName",
+    "userEmail",
+    "userPhoneNumber",
+    "userImg",
+  ];
+  for (var i = 0; i < fields.length; i++) {
+    document.getElementById(fields[i]).disabled = disabled;
+  }
 }

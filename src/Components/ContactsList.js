@@ -16,8 +16,6 @@ function ContactsList(contacts) {
   window.onEditContact = onEditContact;
   if (contacts.length > 0) {
     for (var i = 0; i < contacts.length; i++) {
-      console.log(contacts[i]);
-      console.log(contacts[i].imageURL);
       content += `
       
       
