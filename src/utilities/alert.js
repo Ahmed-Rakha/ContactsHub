@@ -1,6 +1,6 @@
-export function fireAlert({ type, message }) {
+export function fireAlert({ type, title = "", message }) {
   Swal.fire({
-    title: type.toLowerCase() === "error" ? "Error!" : "Success!",
+    title: title,
     icon: type.toLowerCase() === "error" ? "error" : "success",
     text: message,
     confirmButtonText: "Ok",

@@ -14,6 +14,7 @@ import {
 function ContactModal() {
   var isValid = false;
   var imageURL = null;
+  var validationMessage = "";
   function onInput(element) {
     console.log(element.id, element.value);
     if (element.id === "contactImg") return;
@@ -21,7 +22,9 @@ function ContactModal() {
     if (element.id === "contactGroup") return;
     if (element.id === "contactAddress") return;
 
-    isValid = validateInput(element.id, element.value.trim());
+    var validation = validateInput(element.id, element.value.trim());
+    isValid = validation.validationStatus;
+    validationMessage = validation.validationMessage;
   }
 
   function onSelectImg(element) {
@@ -57,15 +60,64 @@ function ContactModal() {
           imageURL: imageURL,
         };
 
+        // check duplicate phone number
+        var userProfile = getUserProfile();
+        var isDuplicate = userProfile.contacts.some(
+          (p) => p.phoneNumber === newContact.phoneNumber
+        );
+        if (isDuplicate) {
+          fireAlert({
+            type: "error",
+            title: "Duplicate Phone Number",
+            message: "A contact with this phone number already exists.",
+          });
+          return;
+        }
+
         saveContact(newContact);
         modalForm.reset();
         closeModal();
         fireAlert({ type: "success", message: "Contact saved successfully" });
       } else {
-        fireAlert({
-          type: "error",
-          message: "Please fill the form correctly.",
-        });
+        if (!contactFullName.value) {
+          fireAlert({
+            type: "error",
+            title: "Missing Name",
+            message: validationMessage || "Please enter a full name!",
+          });
+        } else if (
+          contactFullName.value &&
+          !isValid &&
+          validationMessage.includes("Name")
+        ) {
+          fireAlert({
+            type: "error",
+            title: "Invalid Name",
+            message: validationMessage || "Please enter a valid full name!",
+          });
+        } else if (!contactPhoneNumber.value) {
+          fireAlert({
+            type: "error",
+            title: "Missing Phone",
+            message: validationMessage || "Please enter a phone number!",
+          });
+        } else if (
+          contactPhoneNumber.value &&
+          !isValid &&
+          validationMessage.includes("phone")
+        ) {
+          fireAlert({
+            type: "error",
+            title: "Invalid Phone",
+            message: validationMessage || "Please enter a valid phone number!",
+          });
+        } else {
+          fireAlert({
+            type: "error",
+            title: "Invalid Input",
+            message: validationMessage || "Please check your input values!",
+          });
+        }
       }
     } else if (modalMode === "edit") {
       editContact(contactIndex, {

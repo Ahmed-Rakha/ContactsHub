@@ -9,29 +9,35 @@ export function validateInput(id, value) {
   //   My Rules
   const rules = {
     firstName: {
-      regex: /^[a-zA-Z\s-]{3,50}$/,
+      regex: /^[a-zA-Z\s-]{2,50}$/,
       errorId: "register-form-input-first-name-error",
-      message: "Invalid name. It should be 3 or more characters long.",
+      message: "Name should contain only letters and spaces (2-50 characters)",
+      required: true,
     },
     lastName: {
-      regex: /^[a-zA-Z\s-]{3,50}$/,
+      regex: /^[a-zA-Z\s-]{2,50}$/,
       errorId: "register-form-input-last-name-error",
-      message: "Invalid name. It should be 3 or more characters long.",
+      message: "Name should contain only letters and spaces (2-50 characters)",
+      required: true,
     },
     contactFullName: {
-      regex: /^[a-zA-Z\s-]{3,50}$/,
+      regex: /^[a-zA-Z\s-]{2,50}$/,
       errorId: "register-form-input-last-name-error",
-      message: "Invalid name. It should be 3 or more characters long.",
+      message: "Name should contain only letters and spaces (2-50 characters)",
+      required: true,
     },
     email: {
       regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$/,
+      required: false,
       errorId: "register-form-input-email-error",
       message: "Invalid email address.",
     },
     phoneNumber: {
       regex: /^01(0|1|2|5)\d{8}$/,
       errorId: "register-form-input-phone-error",
-      message: "Invalid phone number.",
+      message:
+        "Please enter a valid Egyptian phone number (e.g., 01012345678 or +201012345678)",
+      required: true,
     },
   };
 
@@ -44,7 +50,10 @@ export function validateInput(id, value) {
 
   errorElement.textContent = isValid ? "" : message;
 
-  return isValid;
+  return {
+    validationStatus: isValid,
+    validationMessage: isValid ? "" : message,
+  };
 }
 
 export function validateUploadedImg(file) {

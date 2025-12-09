@@ -35,7 +35,11 @@ export async function showConfirmationDeletionDialog(contactIndex) {
   });
   if (isConfirmed) {
     removeContact(contactIndex);
-    fireAlert({ type: "success", message: "Contact deleted successfully!" });
+    fireAlert({
+      type: "success",
+      title: "Deleted!",
+      message: "Contact deleted successfully!",
+    });
   }
 }
 export function removeContact(contactIndex) {
@@ -224,7 +228,10 @@ export function onEditUserProfile() {
     setDisabled(true);
     btn.innerText = "Edit Profile";
     btn.dataset.mode = "edit";
-    fireAlert({ type: "success", message: "Profile updated successfully" });
+    fireAlert({
+      type: "success",
+      message: "Profile updated successfully",
+    });
     updateUserProfile(userProfile);
   }
 }
