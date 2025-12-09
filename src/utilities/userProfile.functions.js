@@ -24,6 +24,20 @@ export function saveContact(newContact) {
   return userProfile;
 }
 
+export async function showConfirmationDeletionDialog(contactIndex) {
+  var template = document.getElementById("confirm-deletion-contact-dialog");
+  var swalHtml = template.content.querySelector(".swal-html");
+  swalHtml.innerHTML = `Are you sure you want to delete ${
+    getUserProfile().contacts[contactIndex].fullName
+  }? This action cannot be undone.`;
+  var { isConfirmed, isDismissed } = await Swal.fire({
+    template: "#confirm-deletion-contact-dialog",
+  });
+  if (isConfirmed) {
+    removeContact(contactIndex);
+    fireAlert({ type: "success", message: "Contact deleted successfully!" });
+  }
+}
 export function removeContact(contactIndex) {
   var userProfile = getUserProfile();
   userProfile.contacts.splice(contactIndex, 1);

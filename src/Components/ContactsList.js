@@ -4,6 +4,7 @@ import {
   removeContact,
   editContact,
   onEditContact,
+  showConfirmationDeletionDialog,
 } from "../utilities/userProfile.functions.js";
 
 import { getRandomColor } from "../utilities/generate.random.color.js";
@@ -14,6 +15,7 @@ function ContactsList(contacts) {
   window.removeContact = removeContact;
   window.editContact = editContact;
   window.onEditContact = onEditContact;
+  window.showConfirmationDeletionDialog = showConfirmationDeletionDialog;
   if (contacts.length > 0) {
     for (var i = 0; i < contacts.length; i++) {
       content += `
@@ -93,11 +95,17 @@ function ContactsList(contacts) {
                         <span class="text-muted small-p">${contacts[i].address}</span>
                       </div>`
                       }
-                      <div class="card-badges">
-                        <span
+                      <div class="card-badges mt-2">
+                      ${
+                        !contacts[i].group
+                          ? ""
+                          : `<span
                           class="fw-bold bg-green-200 color-green-600 text-capitalize rounded-2 px-3 py-1 me-3"
                           >${contacts[i].group}</span
                         >
+                        `
+                      }
+                       
                         ${
                           !contacts[i].isEmergency
                             ? ""
@@ -149,7 +157,7 @@ function ContactsList(contacts) {
                           <span onclick="onEditContact(${i})"
                             ><i class="fa-solid fa-pen-to-square me-3"></i
                           ></span>
-                          <span onclick="removeContact(${i})"><i class="fa-solid fa-trash"></i></span>
+                          <span onclick="showConfirmationDeletionDialog(${i})"><i class="fa-solid fa-trash"></i></span>
                         </div>
                       </div>
                     </div>

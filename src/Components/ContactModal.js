@@ -44,7 +44,7 @@ function ContactModal() {
     var modalMode = document.getElementById("modalMode").value;
     var contactIndex = document.getElementById("modalContactIndex").value;
     if (modalMode === "add") {
-      if (isValid) {
+      if (modalForm.reportValidity() && isValid) {
         var newContact = {
           fullName: contactFullName.value,
           email: contactEmail.value,
@@ -137,8 +137,12 @@ function ContactModal() {
           <div  class="mb-3">
           <label class=form-label mb-2">Group</label>
            <select class="form-control" id="contactGroup" onchange="onInput(this)">
+           <option value="" selected >Select Group</option>
             <option value="friends">Friends</option>
             <option value="family">Family</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="others">Others</option>
           </select>
          </div>
           <div  class="mb-3">

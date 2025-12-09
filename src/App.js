@@ -10,6 +10,7 @@ import {
   recalculateUserStats,
 } from "./utilities/userProfile.functions.js";
 import UserModal from "./Components/UserModal.js";
+import ConfirmDeletionContactDialog from "./Components/ConfirmDeletionContactDialog.js";
 function App() {
   var isRegistered = JSON.parse(localStorage.getItem("isRegistered"));
 
@@ -54,6 +55,7 @@ function App() {
       </main>
       ${ContactModal()}
       ${UserModal()}
+      ${ConfirmDeletionContactDialog()}
     </div>
   `;
   }
